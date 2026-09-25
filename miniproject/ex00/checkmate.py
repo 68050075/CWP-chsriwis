@@ -2,15 +2,18 @@
 
 def checkmate(board):
     if not board or not isinstance(board, str):
+        print("Error")
         return
 
     lines = board.strip().split('\n')
     if not lines:
+        print("Error")
         return
 
     rows = len(lines)
     for line in lines:
         if len(line) != rows:
+            print("Error")
             return
         
     king_pos = None
@@ -22,9 +25,12 @@ def checkmate(board):
                 king_count += 1
 
     if king_count != 1:
+        print("Error")
         return
 
     kr, kc = king_pos
+
+    PIECES = ('P', 'R', 'B', 'Q', 'K')
 
     pawn_attackers = [(kr + 1, kc - 1), (kr + 1, kc + 1)]
     for r, c in pawn_attackers:
@@ -38,7 +44,7 @@ def checkmate(board):
         r, c = kr + dr, kc + dc
         while 0 <= r < rows and 0 <= c < rows:
             piece = lines[r][c]
-            if piece != '.': 
+            if piece in PIECES:
                 if piece in ('R', 'Q'):
                     print("Success")
                     return
@@ -51,7 +57,7 @@ def checkmate(board):
         r, c = kr + dr, kc + dc
         while 0 <= r < rows and 0 <= c < rows:
             piece = lines[r][c]
-            if piece != '.':
+            if piece in PIECES:
                 if piece in ('B', 'Q'):
                     print("Success")
                     return
